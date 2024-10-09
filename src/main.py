@@ -31,7 +31,7 @@ class Category:
         self.products = products
 
         Category.category_count += 1
-        self.product_count = len(products) if products else 0
+        Category.product_count += len(products) if products else 0
 
 
 # if __name__ == "__main__":

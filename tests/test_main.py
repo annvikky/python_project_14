@@ -1,4 +1,3 @@
-
 def test_product_init(product_1, product_2):
     """Тест на инициализацию класса"""
     assert product_1.name == "Samsung Galaxy S23 Ultra"
@@ -22,8 +21,8 @@ def test_category_init(category_1, category_2):
     assert len(category_1.products) == 2
 
     """ Тест на подсчет количества продуктов и категорий"""
-    assert category_1.product_count == 2
-    assert category_2.product_count == 3
+    assert category_1.product_count == 5
+    assert category_2.product_count == 5
 
     assert category_1.category_count == 2
     assert category_2.category_count == 2
