@@ -16,7 +16,7 @@ def test_category_init(category_1, category_2):
     assert category_1.name == "Смартфоны"
     assert (
         category_1.description
-        == "Смартфоны, как средство не только коммуникации, но и получения доп функций для удобства жизни"
+        == "Описание"
     )
     assert len(category_1.products) == 2
 

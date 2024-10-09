@@ -25,7 +25,7 @@ def product_2():
 def category_1():
     return Category(
         name="Смартфоны",
-        description="Смартфоны, как средство не только коммуникации, но и получения доп функций для удобства жизни",
+        description="Описание",
         products=[
             Product(
                 name="Samsung Galaxy S23 Ultra",
