@@ -1,3 +1,6 @@
+from src.main import Category, Product
+
+
 def test_product_init(product_1, product_2):
     """Тест на инициализацию класса"""
     assert product_1.name == "Samsung Galaxy S23 Ultra"
@@ -14,11 +17,8 @@ def test_product_init(product_1, product_2):
 def test_category_init(category_1, category_2):
     """Тест на инициализацию класса"""
     assert category_1.name == "Смартфоны"
-    assert (
-        category_1.description
-        == "Описание"
-    )
-    assert len(category_1.products) == 2
+    assert category_1.description == "Описание"
+    assert len(category_1.products_in_list) == 2
 
     """ Тест на подсчет количества продуктов и категорий"""
     assert category_1.product_count == 5
@@ -26,3 +26,76 @@ def test_category_init(category_1, category_2):
 
     assert category_1.category_count == 2
     assert category_2.category_count == 2
+
+
+def test_list_of_products_property(category_1):
+    """Тест на работу геттера."""
+    assert (
+        category_1.products
+        == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+        "Iphone 15, 210000.0 руб. Остаток: 8 шт.\n"
+    )
+
+
+def test_add_product():
+    """Тест на добавление экземпляра."""
+    product4 = Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)
+
+    assert product4.name == '55" QLED 4K'
+    assert product4.description == "Фоновая подсветка"
+    assert product4.price == 123000.0
+    assert product4.quantity == 7
+
+
+def test_new_product_with_changing_price(capsys):
+    """Тест на создание экземпляра из словаря и изменения атрибута цены."""
+    new_product = Product.new_product(
+        {
+            "name": "Samsung Galaxy S23 Ultra",
+            "description": "256GB, Серый цвет, 200MP камера",
+            "price": 180000.0,
+            "quantity": 5,
+        }
+    )
+    assert new_product.name == "Samsung Galaxy S23 Ultra"
+    assert new_product.description == "256GB, Серый цвет, 200MP камера"
+    assert new_product.price == 180000.0
+    assert new_product.quantity == 5
+
+    new_product.price = 200000.0
+    assert new_product.price == 200000.0
+    new_product.price = -100
+    message = capsys.readouterr()
+    assert message.out.strip() == "Цена не должна быть нулевая или отрицательная"
+    assert new_product.price == 200000.0
+    new_product.price = 0
+    assert new_product.price == 200000.0
+
+
+Category.category_count = 0
+
+
+def test_counter():
+    """Тест на работоспособность счетчиков."""
+
+    Category(
+        "Смартфоны",
+        "Описание",
+        [
+            Product(
+                "Samsung Galaxy S23 Ultra",
+                "256GB, Серый цвет, 200MP камера",
+                180000.0,
+                5,
+            ),
+            Product("Iphone 15", "512GB, Gray space", 210000.0, 8),
+        ],
+    )
+    Category(
+        "Телевизоры",
+        "Описание",
+        [Product('55" QLED 4K', "Фоновая подсветка", 123000.0, 7)],
+    )
+
+    assert Category.category_count == 2
+    assert Category.product_count == 3

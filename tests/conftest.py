@@ -1,7 +1,6 @@
 import pytest
 
-from src.main import Product
-from src.main import Category
+from src.main import Category, Product
 
 
 @pytest.fixture
@@ -23,7 +22,7 @@ def product_2():
 
 @pytest.fixture
 def category_1():
-    return Category(
+    category_1 = Category(
         name="Смартфоны",
         description="Описание",
         products=[
@@ -41,11 +40,14 @@ def category_1():
             ),
         ],
     )
+    yield category_1
+    Category.category_count = 0
+    Category.product_count = 0
 
 
 @pytest.fixture
 def category_2():
-    return Category(
+    category_2 = Category(
         name="Телевизоры",
         description="Описание продукта",
         products=[
@@ -69,3 +71,6 @@ def category_2():
             ),
         ],
     )
+    yield category_2
+    Category.category_count = 0
+    Category.product_count = 0
