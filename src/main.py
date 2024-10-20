@@ -13,6 +13,14 @@ class Product:
         self.__price = price  # приватный атрибут цены
         self.quantity = quantity
 
+    def __str__(self):
+        """Метод для возврата строки в формате 'Название продукта, X руб. Остаток: X шт.'."""
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        """Метод сложения, который возвращает сумму произведений цены на количество у двух объектов."""
+        return self.price * self.quantity + other.price * other.quantity
+
     @classmethod
     def new_product(cls, product_info):
         """Класс-метод для получения экземпляра класса из словаря."""
@@ -55,6 +63,13 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products)
 
+    def __str__(self):
+        """Метод для вывода строки в формате 'Название категории, количество продуктов: X шт.'"""
+        self.product_count = 0
+        for product in self.__products:
+            self.product_count += product.quantity
+        return f"{self.name}, количество продуктов: {self.product_count} шт. "
+
     def add_product(self, product: Product) -> None:
         """Метод для добавления продукта."""
         self.__products.append(product)
@@ -66,11 +81,12 @@ class Category:
         products_str = ""
 
         for product in self.__products:
-            products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+            products_str += f"{str(product)}\n"
         return products_str
 
     @property
     def products_in_list(self):
+        """Геттер для вывода информации о продукте в формате списка."""
         return self.__products
 
 
@@ -156,3 +172,26 @@ class Category:
 #     print(new_product.price)
 #     new_product.price = 0
 #     print(new_product.price)
+
+# if __name__ == '__main__':
+#     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+#     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+#     product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+#
+#     print(str(product1))
+#     print(str(product2))
+#     print(str(product3))
+#
+#     category1 = Category(
+#         "Смартфоны",
+#         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
+#         [product1, product2, product3]
+#     )
+#
+#     print(str(category1))
+#
+#     print(category1.products)
+#
+#     print(product1 + product2)
+#     print(product1 + product3)
+#     print(product2 + product3)

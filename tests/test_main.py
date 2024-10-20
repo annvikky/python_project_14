@@ -99,3 +99,19 @@ def test_counter():
 
     assert Category.category_count == 2
     assert Category.product_count == 3
+
+
+def test_product_str(product_1, product_2):
+    """Тест на строковое представление продукта."""
+    assert str(product_1) == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    assert str(product_2) == "Iphone 15, 210000.0 руб. Остаток: 8 шт."
+
+
+def test_product_add(product_1, product_2):
+    """Тест на корректную сумму произведений цены на количество у двух объектов."""
+    assert product_1 + product_2 == 2580000.0
+
+
+def test_category_str(category_1):
+    """Тест на строковое представление категории."""
+    assert str(category_1) == "Смартфоны, количество продуктов: 13 шт. "
