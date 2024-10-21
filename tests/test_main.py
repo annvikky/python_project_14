@@ -1,3 +1,5 @@
+import pytest
+
 from src.main import Category, Product
 
 
@@ -45,6 +47,12 @@ def test_add_product():
     assert product4.description == "Фоновая подсветка"
     assert product4.price == 123000.0
     assert product4.quantity == 7
+
+
+def test_add_product_error(bag1):
+    """Тест на выбрасывание ошибки при добавлении экземпляра другого класса."""
+    with pytest.raises(TypeError):
+        Category.add_product(bag1)
 
 
 def test_new_product_with_changing_price(capsys):
