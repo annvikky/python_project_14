@@ -19,7 +19,10 @@ class Product:
 
     def __add__(self, other):
         """Метод сложения, который возвращает сумму произведений цены на количество у двух объектов."""
-        return self.price * self.quantity + other.price * other.quantity
+        if type(other) is Product:
+            return self.price * self.quantity + other.price * other.quantity
+        else:
+            raise TypeError
 
     @classmethod
     def new_product(cls, product_info):
@@ -71,9 +74,12 @@ class Category:
         return f"{self.name}, количество продуктов: {self.product_count} шт. "
 
     def add_product(self, product: Product) -> None:
-        """Метод для добавления продукта."""
-        self.__products.append(product)
-        Category.product_count += 1
+        """Метод для добавления продукта базового класса и дочерних."""
+        if isinstance(product, Product):
+            self.__products.append(product)
+            Category.product_count += 1
+        else:
+            raise TypeError
 
     @property
     def products(self):
@@ -138,7 +144,7 @@ class Category:
 #
 #     print(Category.category_count)
 #     print(Category.product_count)
-
+#
 
 # if __name__ == "__main__":
 #     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
@@ -172,7 +178,7 @@ class Category:
 #     print(new_product.price)
 #     new_product.price = 0
 #     print(new_product.price)
-
+#
 # if __name__ == '__main__':
 #     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
 #     product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
