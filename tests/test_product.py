@@ -1,6 +1,6 @@
 import pytest
 
-from src.main import Category, Product
+from src.product import Category, Product
 
 
 def test_product_init(product_1, product_2):
