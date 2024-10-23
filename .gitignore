@@ -51,6 +51,7 @@ pip-delete-this-directory.txt
 #.pytest_cache/
 #cover/
 
+
 # Translations
 *.mo
 *.pot
