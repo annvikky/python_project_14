@@ -22,7 +22,7 @@ def test_category_init(category_1, category_2):
     assert category_1.description == "Описание"
     assert len(category_1.products_in_list) == 2
 
-    """ Тест на подсчет количества продуктов и категорий"""
+    """ Тест на подсчет количества продуктов и категорий."""
     assert category_1.product_count == 5
     assert category_2.product_count == 5
 
@@ -126,3 +126,20 @@ def test_product_add(product_1, product_2):
 def test_category_str(category_1):
     """Тест на строковое представление категории."""
     assert str(category_1) == "Смартфоны, количество продуктов: 13 шт. "
+
+
+def test_product_invalid():
+    """Тест на выбрасывание исключения."""
+    with pytest.raises(ValueError):
+        Product("Бракованный товар", "Неверное количество", 1000.0, 0)
+
+
+def test_middle_price(category_1):
+    """Тест на корректность расчета среднего значения цены в списке продуктов категории."""
+    assert category_1.middle_price() == 195000.0
+
+
+def test_middle_price_empty():
+    """Тест на обработку категории с пустым списком."""
+    category_empty = Category("Пустая категория", "Категория без продуктов", [])
+    assert category_empty.middle_price() == 0
