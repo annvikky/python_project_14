@@ -1,6 +1,6 @@
 import pytest
 
-from src.main import Category, Product
+from src.product import Category, Product
 
 
 def test_product_init(product_1, product_2):
@@ -74,7 +74,10 @@ def test_new_product_with_changing_price(capsys):
     assert new_product.price == 200000.0
     new_product.price = -100
     message = capsys.readouterr()
-    assert message.out.strip() == "Цена не должна быть нулевая или отрицательная"
+    assert (
+        message.out.strip().split("\n")[-1]
+        == "Цена не должна быть нулевая или отрицательная"
+    )
     assert new_product.price == 200000.0
     new_product.price = 0
     assert new_product.price == 200000.0

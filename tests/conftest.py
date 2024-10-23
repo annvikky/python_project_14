@@ -1,8 +1,8 @@
 import pytest
 
-from src.LawnGrass import LawnGrass
-from src.main import Category, Product
-from src.Smartphone import Smartphone
+from src.lawn_grass import LawnGrass
+from src.product import Category, Product
+from src.smartphone import Smartphone
 
 
 @pytest.fixture
